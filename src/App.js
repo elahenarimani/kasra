@@ -8,20 +8,18 @@ import { taskFetch } from "./taskSlice";
 import { isAsyncThunkAction } from "@reduxjs/toolkit";
 import Button from "./component/button/button";
 import AddModal from "./component/addTask/addModal";
-
+import { MdClose } from "react-icons/md";
 function App() {
   const dispatch = useDispatch();
   let { task, status } = useSelector((state) => state);
-  // let filteredData=[];
   const [currentPage, setCurrentPage] = useState(1);
-  const [addModalOpen, setAddModalOpen] = useState(true);
+  const [addModalOpen, setAddModalOpen] = useState(false);
   const filteredData = useMemo(() => {
     return task.map((item) => item);
   }, [task]);
   useEffect(() => {
     dispatch(taskFetch());
   }, []);
-
   const todoList = useSelector((state) => state.todo);
   if (status === "loading ...") {
     return <h3>عملیات در حال انجام است</h3>;
@@ -42,21 +40,24 @@ function App() {
   }
   return (
     <div className="App">
-      <header >
+      <header>
         <h1>Task manager</h1>
-        <p>+</p>
+        <p onClick={() => setAddModalOpen(true)}>+</p>
       </header>
-      {/* {addModalOpen && ( */}
+      {addModalOpen && (
         <AddModal
           addModalOpen={addModalOpen}
           setAddModalOpen={setAddModalOpen}
         />
-      {/* )} */}
+      )}
       <div className="task-wrapper">
         {filteredData
           ?.slice(currentPage * 20 - 20, currentPage * 20)
           .map((item) => (
             <div key={item.id} className="task">
+              <Button className="close">
+                <MdClose />
+              </Button>
               <p>
                 {item.title} {item.id}
               </p>

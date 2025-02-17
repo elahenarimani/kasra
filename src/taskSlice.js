@@ -6,6 +6,19 @@ export let taskFetch = createAsyncThunk("tasks/fetchTasks", () => {
       throw error;
     });
 });
+
+
+
+export let postFetch = createAsyncThunk("post/fetchPost", (title,description) => {
+  return fetch("https://6166c3df13aa1d00170a66b9.mockapi.io/tasks", {
+    method:"POST",
+    body:JSON.stringify({title,description})
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      throw error;
+    });
+});
 const taskSlice = createSlice({
   name: "task",
   initialState: {
@@ -24,12 +37,21 @@ const taskSlice = createSlice({
       })
       .addCase(taskFetch.rejected, (state) => {
         state.status = "failed ...";
-      });
+      })
+      .addCase(postFetch.pending, (state) => {
+        state.status = "loading ...";
+      })
+      .addCase(postFetch.fulfilled, (state, action) => {
+        state.status = "success ...";
+        state.task = action.payload;
+      })
+      .addCase(postFetch.rejected, (state) => {
+        state.status = "failed ...";
+      })
   },
-  addToTask: (state , action)=>{
-    state.push({id:Date.now(), title:action.payload.title ,description:action.payload.description ,image:action.payload.image})
-    // title="", description="" , description=""
-  }
+  // addToTask: (state , action)=>{
+  //   state.push({id:Date.now(), title:action.payload.title ,description:action.payload.description ,image:action.payload.image})
+  // }
 });
 export const {
   addToTask
