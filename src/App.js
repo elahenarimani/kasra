@@ -13,6 +13,7 @@ function App() {
   let { task, status } = useSelector((state) => state);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [addModalOpen , setAddModalOpen] = useState(false)
   const filteredData = useMemo(() => {
     return task.map((item) => item);
   }, [task]);
@@ -48,6 +49,17 @@ function App() {
   // }
   return (
     <div className="App">
+      <header onClick={setAddModalOpen(true)}>
+        <h1>Task manager</h1>
+        <p>+</p>
+      </header>
+      {addModalOpen && 
+      <form>
+        <input value={} on></input>
+        <input></input>
+        <input></input>
+      </form>
+      }
       <div className="task-wrapper">
         {filteredData
           ?.slice(currentPage * 20 - 20, currentPage * 20)
