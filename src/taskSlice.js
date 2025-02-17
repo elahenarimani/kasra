@@ -26,6 +26,13 @@ const taskSlice = createSlice({
         state.status = "failed ...";
       });
   },
+  addToTask: (state , action)=>{
+    state.push({id:Date.now(), title:action.payload.title ,description:action.payload.description ,image:action.payload.image})
+    // title="", description="" , description=""
+  }
 });
+export const {
+  addToTask
+} =taskSlice.actions;
 export default taskSlice;
 

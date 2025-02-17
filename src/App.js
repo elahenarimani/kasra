@@ -6,14 +6,15 @@ import { add, remove } from "./redux/reducers/todos/todosReducer";
 import { useEffect, useMemo, useState } from "react";
 import { taskFetch } from "./taskSlice";
 import { isAsyncThunkAction } from "@reduxjs/toolkit";
-import Button from "./component/button";
+import Button from "./component/button/button";
+import AddModal from "./component/addTask/addModal";
 
 function App() {
   const dispatch = useDispatch();
   let { task, status } = useSelector((state) => state);
-
+  // let filteredData=[];
   const [currentPage, setCurrentPage] = useState(1);
-  const [addModalOpen , setAddModalOpen] = useState(false)
+  const [addModalOpen, setAddModalOpen] = useState(true);
   const filteredData = useMemo(() => {
     return task.map((item) => item);
   }, [task]);
@@ -21,7 +22,7 @@ function App() {
     dispatch(taskFetch());
   }, []);
 
-  // const todoList = useSelector((state)=> state.todo)
+  const todoList = useSelector((state) => state.todo);
   if (status === "loading ...") {
     return <h3>عملیات در حال انجام است</h3>;
   }
@@ -39,34 +40,27 @@ function App() {
       setCurrentPage(currentPage + 1);
     }
   }
-
-  //  let slisedTask=filteredData.slice(indexOfFirstTask , indexOfLastTask)
-  // function sliceTask(){
-  //   let indexOfLastTask = currentPage * 20;
-  //   let indexOfFirstTask =indexOfLastTask -20;
-  //   let slisedTask=filteredData.slice(indexOfFirstTask , indexOfLastTask)
-  //     return slisedTask
-  // }
   return (
     <div className="App">
-      <header onClick={setAddModalOpen(true)}>
+      <header >
         <h1>Task manager</h1>
         <p>+</p>
       </header>
-      {addModalOpen && 
-      <form>
-        <input value={} on></input>
-        <input></input>
-        <input></input>
-      </form>
-      }
+      {/* {addModalOpen && ( */}
+        <AddModal
+          addModalOpen={addModalOpen}
+          setAddModalOpen={setAddModalOpen}
+        />
+      {/* )} */}
       <div className="task-wrapper">
         {filteredData
           ?.slice(currentPage * 20 - 20, currentPage * 20)
           .map((item) => (
             <div key={item.id} className="task">
-              <p>{item.title} {item.id}</p>
-              <p className="task-description" >{item.description}</p>
+              <p>
+                {item.title} {item.id}
+              </p>
+              <p className="task-description">{item.description}</p>
               <div className="img-wrapper">
                 <img aria-label="nature" src={item.image} />
               </div>

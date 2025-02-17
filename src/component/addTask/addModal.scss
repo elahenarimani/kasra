@@ -1,0 +1,40 @@
+@import "../../variable.scss";
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+  }
+form{
+    @include flexstart;
+    width: map-get($size , "width" );
+    height: 180px;
+    gap: 10px;
+    padding: $padding;
+    .input-title{
+      outline: none;
+      width: 50%;
+      height: 50px;
+      border :1px solid $border-color;
+      border-radius: $border-radius;
+      padding-left: $padding-x;
+      &:hover {
+        border: 1px solid $border-hovered;
+      }
+    }
+    .input-description{
+      @extend .input-title
+    }
+    .submit-input{
+      border-radius: $border-radius;
+      display: inline-block;
+      width: 100px;
+      height: 60px;
+      outline: none;
+      border :1px solid $border-color;
+      border-radius: $border-radius;
+      &:hover {
+        border: 1px solid $border-hovered;
+      }
+    }
+  }
