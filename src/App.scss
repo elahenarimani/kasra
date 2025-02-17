@@ -1,0 +1,76 @@
+$padding: 32px;
+$general-color: #dadce0;
+$border-color: #dddddd;
+@mixin flexend {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 30px;
+}
+@mixin flexCenter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.App {
+  max-width: 100%;
+  height: 100vh;
+  padding-right: $padding;
+  padding-left: $padding;
+  margin-left: auto;
+  margin-right: auto;
+  .task-wrapper {
+    display: grid;
+    grid-template-columns: 300px 300px 300px 300px;
+    gap: 10px;
+    justify-content:center;
+    // justify-content: space-between;
+    .task {
+      height: 500px;
+      border: 1px solid $border-color;
+      border-radius: 5px;
+      padding: $padding;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 20px;
+      .task-description {
+        width: 100%;
+        flex-grow: 1; 
+        height:250px; // ارتفاع مشخص برای توضیحات
+        overflow-y: scroll;           /* مخفی کردن محتوای اضافی */
+      }
+      .img-wrapper {
+        
+        width: 200px;
+        height: auto;
+        margin-top: auto;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+ 
+
+  footer {
+    width: 100%;
+    @include flexend;
+    height: 50px;
+    background-color: aqua;
+    .icon-prev {
+      @include flexCenter;
+      width: 20px;
+      height: 20px;
+      border: 1px solid $border-color;
+      background-color: $general-color;
+    }
+    .icon-next {
+      @extend .icon-prev;
+    }
+  }
+}
