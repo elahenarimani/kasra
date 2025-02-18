@@ -4,11 +4,12 @@ import { GrFormNext } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
 import { add, remove } from "./redux/reducers/todos/todosReducer";
 import { useEffect, useMemo, useState } from "react";
-import { taskFetch,deletekFetch } from "./taskSlice";
+import { taskFetch, deleteFetch } from "./taskSlice";
 import { isAsyncThunkAction } from "@reduxjs/toolkit";
 import Button from "./component/button/button";
 import AddModal from "./component/addTask/addModal";
 import { MdClose } from "react-icons/md";
+import { MdAddTask } from "react-icons/md";
 function App() {
   const dispatch = useDispatch();
   let { task, status } = useSelector((state) => state);
@@ -39,13 +40,18 @@ function App() {
     }
   }
   function deleteHandler(id) {
-    dispatch(deletekFetch({id:id}));
+    dispatch(deleteFetch(id));
   }
+  console.log(task);
+  console.log( status);
   return (
     <div className="App">
-      <header>
-        <h1>Task manager</h1>
-        <p onClick={() => setAddModalOpen(true)}>+</p>
+      <div className="hidden-header"></div>
+      <header onClick={() => setAddModalOpen(true)}>
+        <h1>Add Task</h1>
+        <div className="add-task-wrapper">
+          <MdAddTask className="add-task" />
+        </div>
       </header>
       {addModalOpen && (
         <AddModal
@@ -61,9 +67,9 @@ function App() {
               {/* <Button className="close" onClickHandler={dispatch(taskFetch({item.id})} >
                 <MdClose />
               </Button> */}
-              <button className="close" onClick={()=> deleteHandler(item.id)} >
+              <button className="close" onClick={() => deleteHandler(item.id)}>
                 <MdClose />
-              </button> 
+              </button>
               <p>
                 {item.title} {item.id}
               </p>
@@ -76,6 +82,7 @@ function App() {
       </div>
       <p>{console.log(filteredData)}</p>
       <p>{currentPage}</p>
+      <div className="hidden-footer"></div>
       <footer>
         <section className="button-wrapper">
           <Button

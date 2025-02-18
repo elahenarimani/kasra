@@ -4,29 +4,35 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-   
   }
 .form-wrapper {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: opacify($color: gray, $amount: 0.5);
+  background-color: black;
+  opacity: 0.5;
   top: 0;
   left: 0;
-  z-index: 12;
-  form {
-    width: 100%;
+  z-index: 20;
+  .form{
+    border-radius: 10px;
+    width: 60% !important;
+    height: 200px;
+    border: 1px solid $border-color;
+    background-color: white;
+    opacity: 1;
     @include flexstart;
     text-align: center;
-    
+    background-color: white;
     width: map-get($size, "width");
     height: 180px;
     gap: 10px;
     padding: $padding;
     .input-title {
+      background-color: white;
       outline: none;
       width: 50%;
       height: 50px;

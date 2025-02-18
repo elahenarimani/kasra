@@ -3,29 +3,36 @@ import Input from "../input/input";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToTask } from "../../taskSlice";
+import { addFetch } from "../../taskSlice";
 function AddModal({ addModalOpen, setAddModalOpen }) {
   const dispatch = useDispatch();
   let { task, status } = useSelector((state) => state);
   const [inpTitle, setInpTitle] = useState("");
   const [inpDescription, setinpDescription] = useState("");
   //   let { task, status } = useSelector((state) => state);
-  function handleaddTask(){
+  function handleaddTask() {
     dispatch(
-        // addToTask({
-        //   title: inpTitle,
-        //   description: inpDescription,
-        //   image: "aaaa",
-        // })
-      )
-      setAddModalOpen(false)
+      addFetch({
+        title: inpTitle,
+        description: inpDescription,
+      })
+    );
+    setInpTitle("");
+    setinpDescription("");
+    setAddModalOpen(false);
   }
-
-  //   function addTask(){
-
-  //   }
+  // if (status === "success ...") {
+  //   return <h3>داده ها با موفقیت ارسال شد</h3>;
+  // }
+  if (status === "loading ...") {
+    return <h3>داده ها در حال ارسال است</h3>;
+  }
+  if (status === "failed ...") {
+    return <h3>عملیات با خطا مواجه است</h3>;
+  }
   return (
     <div className="form-wrapper">
-      <form>
+      <form className="form">
         {console.log(inpTitle)}
         {console.log(task)}
         <label for="title"></label>
@@ -50,8 +57,7 @@ function AddModal({ addModalOpen, setAddModalOpen }) {
           type={"submit"}
           className={"submit-input"}
           // formnovalidate="formnovalidate"
-          onClick={() =>handleaddTask()
-          }
+          onClick={() => handleaddTask()}
         />
       </form>
     </div>
