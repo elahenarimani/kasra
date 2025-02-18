@@ -47,6 +47,34 @@ export let addFetch = createAsyncThunk(
   }
 );
 
+
+
+export let editFetch = createAsyncThunk(
+  "task/addTasks",
+  async ({ title, description }) => {
+    try {
+      const newTask = {
+        title: title,
+        description: description,
+      };
+      const response = await fetch(
+        `https://6166c3df13aa1d00170a66b9.mockapi.io/tasks/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newTask),
+        }
+      );
+      const result = await response.json();
+    
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 const taskSlice = createSlice({
   name: "task",
   initialState: {

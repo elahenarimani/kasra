@@ -10,11 +10,13 @@ import Button from "./component/button/button";
 import AddModal from "./component/addTask/addModal";
 import { MdClose } from "react-icons/md";
 import { MdAddTask } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
 function App() {
   const dispatch = useDispatch();
   let { task, status } = useSelector((state) => state);
   const [currentPage, setCurrentPage] = useState(1);
   const [addModalOpen, setAddModalOpen] = useState(false);
+  const [editModalOpen, setEditOpen] = useState(false);
   const filteredData = useMemo(() => {
     return task.map((item) => item);
   }, [task]);
@@ -42,8 +44,13 @@ function App() {
   function deleteHandler(id) {
     dispatch(deleteFetch(id));
   }
+  function editHandler(id) {
+    // dispatch(editFetch(id));
+    
+    setEditOpen(true);
+  }
   console.log(task);
-  console.log( status);
+  console.log(status);
   return (
     <div className="App">
       <div className="hidden-header"></div>
@@ -67,8 +74,12 @@ function App() {
               {/* <Button className="close" onClickHandler={dispatch(taskFetch({item.id})} >
                 <MdClose />
               </Button> */}
+
               <button className="close" onClick={() => deleteHandler(item.id)}>
                 <MdClose />
+              </button>
+              <button className="edit" onClick={() => editHandler(item.id)}>
+                <CiEdit />
               </button>
               <p>
                 {item.title} {item.id}
