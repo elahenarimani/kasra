@@ -4,7 +4,7 @@ import { GrFormNext } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
 import { add, remove } from "./redux/reducers/todos/todosReducer";
 import { useEffect, useMemo, useState } from "react";
-import { taskFetch } from "./taskSlice";
+import { taskFetch,deletekFetch } from "./taskSlice";
 import { isAsyncThunkAction } from "@reduxjs/toolkit";
 import Button from "./component/button/button";
 import AddModal from "./component/addTask/addModal";
@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     dispatch(taskFetch());
   }, []);
-  const todoList = useSelector((state) => state.todo);
+  // const todoList = useSelector((state) => state.todo);
   if (status === "loading ...") {
     return <h3>عملیات در حال انجام است</h3>;
   }
@@ -34,9 +34,12 @@ function App() {
     }
   }
   function handleNextPage() {
-    if (currentPage < Math.ceil(filteredData.length / 20)) {
+    if (currentPage < Math.ceil(filteredData.length / 100)) {
       setCurrentPage(currentPage + 1);
     }
+  }
+  function deleteHandler(id) {
+    dispatch(deletekFetch({id:id}));
   }
   return (
     <div className="App">
@@ -52,12 +55,15 @@ function App() {
       )}
       <div className="task-wrapper">
         {filteredData
-          ?.slice(currentPage * 20 - 20, currentPage * 20)
+          ?.slice(currentPage * 100 - 100, currentPage * 100)
           .map((item) => (
             <div key={item.id} className="task">
-              <Button className="close">
+              {/* <Button className="close" onClickHandler={dispatch(taskFetch({item.id})} >
                 <MdClose />
-              </Button>
+              </Button> */}
+              <button className="close" onClick={()=> deleteHandler(item.id)} >
+                <MdClose />
+              </button> 
               <p>
                 {item.title} {item.id}
               </p>
@@ -71,20 +77,22 @@ function App() {
       <p>{console.log(filteredData)}</p>
       <p>{currentPage}</p>
       <footer>
-        <Button
-          className="icon-prev"
-          onClickHandler={handlePrevPage}
-          disabled={currentPage === 1}
-        >
-          <GrFormPrevious />
-        </Button>
-        <Button
-          className="icon-next"
-          onClickHandler={handleNextPage}
-          disabled={currentPage === Math.ceil(filteredData.length / 20)}
-        >
-          <GrFormNext />
-        </Button>
+        <section className="button-wrapper">
+          <Button
+            className="icon-prev"
+            onClickHandler={handlePrevPage}
+            disabled={currentPage === 1}
+          >
+            <GrFormPrevious />
+          </Button>
+          <Button
+            className="icon-next"
+            onClickHandler={handleNextPage}
+            disabled={currentPage === Math.ceil(filteredData.length / 100)}
+          >
+            <GrFormNext />
+          </Button>
+        </section>
       </footer>
     </div>
   );

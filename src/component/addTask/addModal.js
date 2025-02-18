@@ -11,11 +11,11 @@ function AddModal({ addModalOpen, setAddModalOpen }) {
   //   let { task, status } = useSelector((state) => state);
   function handleaddTask(){
     dispatch(
-        addToTask({
-          title: inpTitle,
-          description: inpDescription,
-          image: "aaaa",
-        })
+        // addToTask({
+        //   title: inpTitle,
+        //   description: inpDescription,
+        //   image: "aaaa",
+        // })
       )
       setAddModalOpen(false)
   }

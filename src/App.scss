@@ -6,7 +6,7 @@
 // $border-hovered: #909090;
 // $border-radius: 10px;
 @mixin flexend {
-  width: 100%;
+  
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -94,16 +94,30 @@
 
 
   footer {
+    // @include flexend;
     width: 100%;
-    @include flexend;
     height: 50px;
     background-color: aqua;
     padding-right: $padding-x;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
     position: fixed;
     bottom: 0;
     right: 0;
+    z-index: 12;
+    .button-wrapper{
+      width: 100px;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap:50px;
+    }
     .icon-prev {
       @include flexCenter;
+     
       width: 20px;
       height: 20px;
       border :1px solid $border-color;
