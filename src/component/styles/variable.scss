@@ -30,3 +30,30 @@ $size: (
     cursor: pointer;
   }
 }
+@mixin media($screenType) {
+  @if $screenType == mini-mobile {
+    @media only screen and (min-width: 0px) and (max-width:667px) {
+      @content;
+      
+    }
+  } @else if  $screenType ==tablet {
+    @media only screen and (min-width :667px) and (max-width:768px){
+      @content
+    }
+  }
+  @else if  $screenType ==landscape tablets {
+    @media only screen and (min-width :768px) and (max-width:992px){
+      @content
+    }
+  }
+  @else if  $screenType ==laptops {
+    @media only screen and (min-width :992px) and (max-width:1200px){
+      @content
+    }
+  }
+  @else if  $screenType ==large laptops {
+    @media only screen and (min-width :1200px) {
+      @content
+    }
+  }
+}

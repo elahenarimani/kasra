@@ -74,28 +74,28 @@ function App() {
           .map((item) => (
             <div key={item.id} className="task">
               <div className="button-wrapper">
-                {/* <button
+                <button
                   className="close-wrapper"
                   onClick={() => deleteHandler(item.id)}
                 >
                   
                   <MdClose className="close"/>
-                </button> */}
-                <Button
+                </button>
+                {/* <Button
                   className={"close-wrapper"}
                   onClickHandler={deleteHandler(item.id)}
                 >
                   <MdClose className="close" />
-                </Button>
+                </Button> */}
 
-                <Button className={"edit-wrapper"} onClickHandler={editHandler(item.id)}><CiEdit className="edit" /></Button>
+                {/* <Button className={"edit-wrapper"} onClickHandler={editHandler(item.id)}><CiEdit className="edit" /></Button> */}
 
-                {/* <button
+                <button
                   className="edit-wrapper"
                   onClick={() => editHandler(item.id)}
                 >
                   <CiEdit className="edit" />
-                </button> */}
+                </button>
               </div>
               <p className="title">{item.title}</p>
               <p className="task-description">{item.description}</p>
