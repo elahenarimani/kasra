@@ -17,7 +17,7 @@
   justify-content: flex-start;
   align-items: center;
 }
-h3{
+h3 {
   text-align: center;
   margin-top: 32px;
 }
@@ -36,12 +36,69 @@ h3{
     top: 0;
     right: 0;
     z-index: 12;
-    height: 75px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    .add-task-wrapper {
-      width: 50px;
+    height: 60px;
+    @include media(mini-mobile) {
       height: 50px;
+    }
+    @include media(tablet) {
+      height: 55px;
+    }
+    @include media(largTablet) {
+      height: 55px;
+    }
+    @include media(laptop) {
+      height: 57px;
+    }
+    @include media(desktop) {
+      height: 60px;
+    }
+    padding-top: 12px;
+    padding-bottom: 12px;
+    h1 {
+      @include media(mini-mobile) {
+        // height: 50px;
+        font-size: 20px;
+      }
+      @include media(tablet) {
+        // height: 60px;
+        font-size: 23px;
+      }
+      @include media(largTablet) {
+        // height: 60px;
+        font-size: 23px;
+      }
+      @include media(laptop) {
+        // height: 75px;
+        font-size: 26px;
+      }
+      @include media(desktop) {
+        // height: 75px;
+        font-size: 26px;
+      }
+    }
+    .add-task-wrapper {
+      width: 35px;
+      height: 35px;
+      @include media(mini-mobile) {
+        width: 30px;
+        height: 30px;
+      }
+      @include media(tablet) {
+        width: 30px;
+        height: 30px;
+      }
+      @include media(largTablet) {
+        width: 30px;
+        height: 30px;
+      }
+      @include media(laptop) {
+        width: 35px;
+        height: 35px;
+      }
+      @include media(desktop) {
+        width: 35px;
+        height: 35px;
+      }
       cursor: pointer;
       .add-task {
         width: 100%;
@@ -57,19 +114,19 @@ h3{
   }
 
   .task-wrapper {
-    @include media(mini-mobile){
-      grid-template-columns: 300px ;
+    @include media(mini-mobile) {
+      grid-template-columns: 300px;
     }
-    @include media(tablet){
+    @include media(tablet) {
       grid-template-columns: 300px 300px;
     }
-    @include media(largTablet){
+    @include media(largTablet) {
       grid-template-columns: 300px 300px;
     }
-    @include media(laptop){
-      grid-template-columns: 300px 300px 300px ;
+    @include media(laptop) {
+      grid-template-columns: 300px 300px 300px;
     }
-    @include media(desktop){
+    @include media(desktop) {
       grid-template-columns: 300px 300px 300px 300px;
     }
     padding-right: $padding;
@@ -81,6 +138,7 @@ h3{
     column-gap: 30px;
     justify-content: center;
     padding-top: 16px;
+    padding-bottom: 16px;
     .task {
       height: 500px;
       border: 1px solid $border-color;
@@ -91,12 +149,12 @@ h3{
       justify-content: flex-start;
       align-items: center;
       gap: 20px;
-      .title{
+      .title {
         width: 100%;
         font-weight: bold;
         font-size: 17px;
-        white-space: nowrap;  
-        overflow: hidden; 
+        white-space: nowrap;
+        overflow: hidden;
         text-overflow: ellipsis;
       }
       .button-wrapper {
@@ -105,8 +163,9 @@ h3{
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        .close-wrapper , .edit-wrapper{
-          height:24px !important;
+        .close-wrapper,
+        .edit-wrapper {
+          height: 24px !important;
           width: 24px !important;
           border-radius: 50%;
           border: none;
@@ -117,7 +176,8 @@ h3{
             color: white;
             cursor: pointer;
           }
-          .close , .edit{
+          .close,
+          .edit {
             width: 100%;
             height: 100%;
           }
@@ -142,12 +202,24 @@ h3{
     }
   }
 
-
-
-
   footer {
     width: 100%;
     height: 50px;
+    @include media(mini-mobile) {
+      height: 40px;
+    }
+    @include media(tablet) {
+      height: 55px;
+    }
+    @include media(largTablet) {
+      height: 55px;
+    }
+    @include media(laptop) {
+      height: 57px;
+    }
+    @include media(desktop) {
+      height: 60px;
+    }
     background-color: black;
     display: flex;
     flex-direction: row;
