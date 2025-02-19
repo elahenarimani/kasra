@@ -18,7 +18,9 @@ function DeleteModal({ deleteId , setDeleteModal }) {
     return <h3>عملیات با خطا مواجه است</h3>;
   }
   function handleDeleteTask() {
+    console.log("Deleting ID:", deleteId);
     dispatch(deleteFetch(deleteId));
+    setDeleteModal(false);
   }
   return (
     <div className="modal-container">

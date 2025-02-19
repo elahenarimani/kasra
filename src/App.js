@@ -85,13 +85,13 @@ function App() {
               </Button> */}
               <div className="button-wrapper">
                 <button
-                  className="close"
+                  className="close-wrapper"
                   onClick={() => deleteHandler(item.id)}
                 >
                   <MdClose />
                 </button>
                 {/* <DeleteModal onClick={() => deleteHandler(item.id)}/> */}
-                <button className="edit" onClick={() => editHandler(item.id)}>
+                <button className="edit-wrapper" onClick={() => editHandler(item.id)}>
                   <CiEdit />
                 </button>
               </div>
