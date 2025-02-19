@@ -13,8 +13,8 @@ import EditTask from "./component/editTask/editTask";
 function App() {
   const dispatch = useDispatch();
   let { task, status } = useSelector((state) => state);
-//   let task = useSelector((state) => state.task);
-// let status = useSelector((state) => state.status);
+  //   let task = useSelector((state) => state.task);
+  // let status = useSelector((state) => state.status);
   const [currentPage, setCurrentPage] = useState(1);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditOpen] = useState(false);
@@ -68,6 +68,7 @@ function App() {
           setAddModalOpen={setAddModalOpen}
         />
       )}
+
       {editModalOpen &&
         filteredData.map((item) => {
           if (item.id === editIDMode.id) {
@@ -109,7 +110,6 @@ function App() {
       </div>
       <p>{console.log(filteredData)}</p>
       <p>{currentPage}</p>
-      <div className="hidden-footer"></div>
       <footer>
         <section className="button-wrapper">
           <Button
