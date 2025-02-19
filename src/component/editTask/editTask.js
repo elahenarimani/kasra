@@ -19,8 +19,8 @@ function EditTask({
   function handleeditTask() {
     dispatch(
     editFetch({
-         title: inpTitle,
-         description: inpDescription,
+         title: inpTitleEdit,
+         description: inpDescriptionEdit,
          id:editIDMode.id
        })
     );

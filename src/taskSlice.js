@@ -49,7 +49,7 @@ export let addFetch = createAsyncThunk(
 
 export let editFetch = createAsyncThunk(
   "task/editTasks",
-  async ({ title, description, id }) => {
+  async ({title, description, id }) => {
     try {
       const changeTask = {
         title: title,
@@ -59,9 +59,9 @@ export let editFetch = createAsyncThunk(
         `https://6166c3df13aa1d00170a66b9.mockapi.io/tasks/${id}`,
         {
           method: "PUT",
-          // headers: {
-          //   "Content-Type": "application/json",
-          // },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(changeTask),
         }
       );
@@ -121,6 +121,8 @@ const taskSlice = createSlice({
       })
       .addCase(editFetch.fulfilled, (state, action) => {
         state.status = "success ...";
+        console.log(action.payload.result )
+        console.log(action.payload);
         state.task = state.task.map((task) =>
           task.id === action.payload.id ? action.payload.result : task
         );
