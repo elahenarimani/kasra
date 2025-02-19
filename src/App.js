@@ -2,21 +2,21 @@ import "./App.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { GrFormNext } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
-import { add, remove } from "./redux/reducers/todos/todosReducer";
 import { useEffect, useMemo, useState } from "react";
 import { taskFetch, deleteFetch } from "./taskSlice";
-import { isAsyncThunkAction } from "@reduxjs/toolkit";
 import Button from "./component/button/button";
 import AddModal from "./component/addTask/addModal";
 import { MdClose } from "react-icons/md";
 import { MdAddTask } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
+import EditTask from "./component/editTask/editTask";
 function App() {
   const dispatch = useDispatch();
   let { task, status } = useSelector((state) => state);
   const [currentPage, setCurrentPage] = useState(1);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditOpen] = useState(false);
+  const [editIDMode, setEditIDMode] = useState({ id: null });
   const filteredData = useMemo(() => {
     return task.map((item) => item);
   }, [task]);
@@ -44,9 +44,9 @@ function App() {
   function deleteHandler(id) {
     dispatch(deleteFetch(id));
   }
-  function editHandler(id) {
+  function editHandler(editID) {
     // dispatch(editFetch(id));
-    
+    setEditIDMode({ id: editID });
     setEditOpen(true);
   }
   console.log(task);
@@ -66,6 +66,20 @@ function App() {
           setAddModalOpen={setAddModalOpen}
         />
       )}
+      {editModalOpen &&
+        filteredData.map((item) => {
+          if (item.id === editIDMode.id) {
+            return (
+              <EditTask
+                editIDMode={editIDMode}
+                editModalOpen={editModalOpen}
+                setEditOpen={setEditOpen}
+                inpTitle={item.title}
+                inpDescription={item.description}
+              />
+            );
+          }
+        })}
       <div className="task-wrapper">
         {filteredData
           ?.slice(currentPage * 100 - 100, currentPage * 100)

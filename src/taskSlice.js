@@ -39,7 +39,7 @@ export let addFetch = createAsyncThunk(
         }
       );
       const result = await response.json();
-    
+
       return result;
     } catch (error) {
       throw error;
@@ -47,29 +47,26 @@ export let addFetch = createAsyncThunk(
   }
 );
 
-
-
 export let editFetch = createAsyncThunk(
-  "task/addTasks",
-  async ({ title, description }) => {
+  "task/editTasks",
+  async ({ title, description, id }) => {
     try {
-      const newTask = {
+      const changeTask = {
         title: title,
         description: description,
       };
       const response = await fetch(
-        `https://6166c3df13aa1d00170a66b9.mockapi.io/tasks/`,
+        `https://6166c3df13aa1d00170a66b9.mockapi.io/tasks/${id}`,
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newTask),
+          method: "PUT",
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
+          body: JSON.stringify(changeTask),
         }
       );
       const result = await response.json();
-    
-      return result;
+      return { result: result, id: id };
     } catch (error) {
       throw error;
     }
@@ -112,11 +109,23 @@ const taskSlice = createSlice({
       })
       .addCase(addFetch.fulfilled, (state, action) => {
         state.status = "success ...";
-        console.log(action.payload)
+        console.log(action.payload);
         state.task = state.task.concat(action.payload);
-        
       })
       .addCase(addFetch.rejected, (state) => {
+        state.status = "failed ...";
+      })
+
+      .addCase(editFetch.pending, (state) => {
+        state.status = "loading ...";
+      })
+      .addCase(editFetch.fulfilled, (state, action) => {
+        state.status = "success ...";
+        state.task = state.task.map((task) =>
+          task.id === action.payload.id ? action.payload.result : task
+        );
+      })
+      .addCase(editFetch.rejected, (state) => {
         state.status = "failed ...";
       });
   },
