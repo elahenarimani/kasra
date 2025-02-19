@@ -1,27 +1,33 @@
-// import "./addModal.scss";
+// import "./editTask.scss";
 // import Input from "../input/input";
 // import { useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
-// import { addFetch } from "../../taskSlice";
-// function AddModal({ addModalOpen, setAddModalOpen }) {
+// import { editFetch } from "../../taskSlice";
+// function EditTask({
+//   editIDMode,
+//   editModalOpen,
+//   setEditOpen,
+//   inpTitle,
+//   inpDescription,
+// }) {
 //   const dispatch = useDispatch();
 //   let { task, status } = useSelector((state) => state);
-//   const [inpTitle, setInpTitle] = useState("");
-//   const [inpDescription, setinpDescription] = useState("");
-//   function handleaddTask() {
+//   const [inpTitleEdit, setInpTitleEdit] = useState(inpTitle);
+//   const [inpDescriptionEdit, setinpDescriptionEdit] = useState(inpDescription);
+//   function handleeditTask() {
 //     dispatch(
-//       addFetch({
-//         title: inpTitle,
-//         description: inpDescription,
-//       })
+//     editFetch({
+//          title: inpTitleEdit,
+//          description: inpDescriptionEdit,
+//          id:editIDMode.id
+//        })
 //     );
-//     setInpTitle("");
-//     setinpDescription("");
-//     setAddModalOpen(false);
+//     setEditOpen(false)
 //   }
 //   if (status === "success ...") {
 //     return <h3>داده ها با موفقیت ارسال شد</h3>;
 //   }
+//   console.log(task);
 //   if (status === "loading ...") {
 //     return <h3>داده ها در حال ارسال است</h3>;
 //   }
@@ -35,40 +41,48 @@
 //         {console.log(task)}
 //         <label for="title"></label>
 //         <Input
-//           valueState={inpTitle}
-//           inputHandler={setInpTitle}
+//           valueState={inpTitleEdit}
+//           inputHandler={setInpTitleEdit}
 //           className={"input-title"}
 //           placeholder={"title..."}
 //           type={"text"}
 //           required
 //         />
 //         <Input
-//           valueState={inpDescription}
-//           inputHandler={setinpDescription}
+//           valueState={inpDescriptionEdit}
+//           inputHandler={setinpDescriptionEdit}
 //           className={"input-description"}
 //           placeholder={"description..."}
 //           type={"text"}
 //           required
 //         />
-//         <input
-//           value={"Submit"}
-//           type={"submit"}
-//           className={"submit-input"}
-//           // formnovalidate="formnovalidate"
-//           onClick={() => handleaddTask()}
-//         />
+//         <div className="button-control">
+//           {" "}
+//           <input
+//             value={"Submit"}
+//             type={"submit"}
+//             className={"submit-input"}
+//             onClick={() => handleeditTask()}
+//           />
+//           <input
+//             value={"Cancel"}
+//             className={"cancel-input"}
+//             onClick={() => setEditOpen(false)}
+//           />
+//         </div>
 //       </form>
 //     </div>
 //   );
 // }
-// export default AddModal;
+// export default EditTask;
 
 import React from "react";
 import "../styles/modal.scss";
+// import "./editModal.scss"
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addFetch } from "../../taskSlice";
+import { editFetch } from "../../taskSlice";
 const SignupSchema = Yup.object().shape({
   title: Yup.string()
     .min(2, "Too Short!")
@@ -79,7 +93,13 @@ const SignupSchema = Yup.object().shape({
     .max(800, "Too Long!")
     .required("Required"),
 });
-function AddModal({ addModalOpen, setAddModalOpen }) {
+function EditModal({
+  editIDMode,
+  editModalOpen,
+  setEditModalOpen,
+  inpTitle,
+  inpDescription,
+}) {
   const dispatch = useDispatch();
   let { status } = useSelector((state) => state);
   // if (!addModalOpen) return null;
@@ -92,22 +112,31 @@ function AddModal({ addModalOpen, setAddModalOpen }) {
   if (status === "failed ...") {
     return <h3>عملیات با خطا مواجه است</h3>;
   }
-  function handleAddTask(values) {
-    dispatch(addFetch(values)); // ارسال اطلاعات به Redux
-    setAddModalOpen(false); // بستن مدال بعد از ارسال
+  // function handleAddTask(values) {
+  //   dispatch(editFetch(values)); // ارسال اطلاعات به Redux
+  //   setAddModalOpen(false); // بستن مدال بعد از ارسال
+  // }
+
+  function handleeditTask(values) {
+    dispatch(
+      editFetch(
+      {...values , id:editIDMode.id}
+      )
+    );
+    setEditModalOpen(false);
   }
   return (
     <div className="modal-wrapper">
       <div className="modal-content">
         {console.log("add")}
-        <h1>Add Task</h1>
+        <h1>Edit Task</h1>
         <Formik
           initialValues={{
-            title: "",
-            description: "",
+            title: inpTitle || "",
+            description: inpDescription || "",
           }}
           validationSchema={SignupSchema}
-          onSubmit={handleAddTask}
+          onSubmit={handleeditTask}
         >
           {({ errors, touched, validateField, validateForm }) => (
             <Form>
@@ -118,7 +147,11 @@ function AddModal({ addModalOpen, setAddModalOpen }) {
                 ) : null}
               </div>
               <div>
-                <Field name="description" as="textarea" className="field-wrapper" />
+                <Field
+                  name="description"
+                  as="textarea"
+                  className="field-wrapper"
+                />
                 {errors.description && touched.description ? (
                   <div className="error">{errors.description}</div>
                 ) : null}
@@ -130,7 +163,7 @@ function AddModal({ addModalOpen, setAddModalOpen }) {
                 <button
                   type="button"
                   className="cancel-btn "
-                  onClick={() => setAddModalOpen(false)}
+                  onClick={() => setEditModalOpen(false)}
                 >
                   Cancel
                 </button>
@@ -142,4 +175,4 @@ function AddModal({ addModalOpen, setAddModalOpen }) {
     </div>
   );
 }
-export default AddModal;
+export default EditModal;

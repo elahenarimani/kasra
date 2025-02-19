@@ -39,7 +39,6 @@ export let addFetch = createAsyncThunk(
         }
       );
       const result = await response.json();
-
       return result;
     } catch (error) {
       throw error;
