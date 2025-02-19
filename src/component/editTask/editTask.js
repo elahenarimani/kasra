@@ -3,8 +3,6 @@ import Input from "../input/input";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editFetch } from "../../taskSlice";
-// import { addFetch } from "../../taskSlice";
-//   let { task, status } = useSelector((state) => state);
 function EditTask({
   editIDMode,
   editModalOpen,
@@ -25,13 +23,10 @@ function EditTask({
        })
     );
     setEditOpen(false)
-    // setInpTitleEdit("");
-    // setinpDescriptionEdit("");
-    //  setAddModalOpen(false);
   }
-  // if (status === "success ...") {
-  //   return <h3>داده ها با موفقیت ارسال شد</h3>;
-  // }
+  if (status === "success ...") {
+    return <h3>داده ها با موفقیت ارسال شد</h3>;
+  }
   console.log(task);
   if (status === "loading ...") {
     return <h3>داده ها در حال ارسال است</h3>;

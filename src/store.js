@@ -5,9 +5,10 @@ import errorsSlice from "./errorsSlice"
 // export const store = createStore(combinedReducers)
 
 let store = configureStore({
-    reducer: {
-        tasks: taskSlice, 
-        formErrors: errorsSlice 
-    }
+    // reducer: {
+    //     tasks: taskSlice, 
+    //     formErrors: errorsSlice 
+    // }
+    reducer : taskSlice.reducer
 })
 export default store

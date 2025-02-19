@@ -13,6 +13,8 @@ import EditTask from "./component/editTask/editTask";
 function App() {
   const dispatch = useDispatch();
   let { task, status } = useSelector((state) => state);
+//   let task = useSelector((state) => state.task);
+// let status = useSelector((state) => state.status);
   const [currentPage, setCurrentPage] = useState(1);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditOpen] = useState(false);
