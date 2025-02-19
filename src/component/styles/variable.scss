@@ -36,24 +36,21 @@ $size: (
       @content;
       
     }
-  } @else if  $screenType ==tablet {
+  } @else if $screenType ==tablet {
     @media only screen and (min-width :667px) and (max-width:768px){
-      @content
+      @content;
     }
-  }
-  @else if  $screenType ==landscape tablets {
-    @media only screen and (min-width :768px) and (max-width:992px){
-      @content
+  } @else if $screenType ==largTablet {
+    @media only screen and (min-width :768px) and (max-width:999px){
+      @content;
     }
-  }
-  @else if  $screenType ==laptops {
-    @media only screen and (min-width :992px) and (max-width:1200px){
-      @content
+  } @else if $screenType ==laptop {
+    @media only screen and (min-width :1000px) and (max-width:1299px){
+      @content;
     }
-  }
-  @else if  $screenType ==large laptops {
-    @media only screen and (min-width :1200px) {
-      @content
+  } @else if $screenType ==desktop {
+    @media only screen and (min-width :1300px) {
+      @content;
     }
   }
 }

@@ -78,18 +78,8 @@ function App() {
                   className="close-wrapper"
                   onClick={() => deleteHandler(item.id)}
                 >
-                  
-                  <MdClose className="close"/>
-                </button>
-                {/* <Button
-                  className={"close-wrapper"}
-                  onClickHandler={deleteHandler(item.id)}
-                >
                   <MdClose className="close" />
-                </Button> */}
-
-                {/* <Button className={"edit-wrapper"} onClickHandler={editHandler(item.id)}><CiEdit className="edit" /></Button> */}
-
+                </button>
                 <button
                   className="edit-wrapper"
                   onClick={() => editHandler(item.id)}

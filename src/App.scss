@@ -57,6 +57,21 @@ h3{
   }
 
   .task-wrapper {
+    @include media(mini-mobile){
+      grid-template-columns: 300px ;
+    }
+    @include media(tablet){
+      grid-template-columns: 300px 300px;
+    }
+    @include media(largTablet){
+      grid-template-columns: 300px 300px;
+    }
+    @include media(laptop){
+      grid-template-columns: 300px 300px 300px ;
+    }
+    @include media(desktop){
+      grid-template-columns: 300px 300px 300px 300px;
+    }
     padding-right: $padding;
     padding-left: $padding;
     max-width: 100%;
