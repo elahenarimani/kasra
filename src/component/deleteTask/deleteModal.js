@@ -2,7 +2,7 @@ import Button from "../button/button";
 
 // import "../styles/modal.scss";
 import "./deleteModal.scss"
-import { deleteFetch } from "../../taskSlice";
+import { deleteFetch } from "../../redux/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 function DeleteModal({ deleteId , setDeleteModal }) {
   const dispatch = useDispatch();
@@ -12,10 +12,10 @@ function DeleteModal({ deleteId , setDeleteModal }) {
   //   return <h3>داده ها با موفقیت ارسال شد</h3>;
   // }
   if (status === "loading ...") {
-    return <h3>داده ها در حال ارسال است</h3>;
+    return <h3>loading ...</h3>;
   }
   if (status === "failed ...") {
-    return <h3>عملیات با خطا مواجه است</h3>;
+    return <h3>failed ..</h3>;
   }
   function handleDeleteTask() {
     console.log("Deleting ID:", deleteId);

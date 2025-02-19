@@ -1,7 +1,7 @@
 import "./App.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
-import { taskFetch} from "./taskSlice";
+import { taskFetch } from "./redux/taskSlice";
 import { GrFormNext } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
 import { MdClose } from "react-icons/md";
@@ -14,8 +14,6 @@ import AddModal from "./component/addTask/addModal";
 function App() {
   const dispatch = useDispatch();
   let { task, status } = useSelector((state) => state);
-  //   let task = useSelector((state) => state.task);
-  // let status = useSelector((state) => state.status);
   const [currentPage, setCurrentPage] = useState(1);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -31,12 +29,11 @@ function App() {
   useEffect(() => {
     dispatch(taskFetch());
   }, []);
-  // const todoList = useSelector((state) => state.todo);
   if (status === "loading ...") {
-    return <h3>عملیات در حال انجام است</h3>;
+    return <h3>loading ...</h3>;
   }
   if (status === "failed ...") {
-    return <h3>عملیات با خطا مواجه است</h3>;
+    return <h3>failed ...</h3>;
   }
   function handlePrevPage() {
     console.log("hi");
@@ -57,21 +54,17 @@ function App() {
     });
   }
   function editHandler(editID) {
-    // dispatch(editFetch(id));
     setEditIDMode({ id: editID });
     setEditModalOpen(true);
   }
-  // function editHandler(deleteId){
-
-  // }
   console.log(task);
   console.log(status);
   return (
     <div className="App">
       <div className="hidden-header"></div>
-      <header onClick={() => setAddModalOpen(true)}>
-        <h1>Add Task</h1>
-        <div className="add-task-wrapper">
+      <header>
+        <h1>Task Manager</h1>
+        <div className="add-task-wrapper" onClick={() => setAddModalOpen(true)}>
           <MdAddTask className="add-task" />
         </div>
       </header>
@@ -80,24 +73,31 @@ function App() {
           ?.slice(currentPage * 20 - 20, currentPage * 20)
           .map((item) => (
             <div key={item.id} className="task">
-              {/* <Button className="close" onClickHandler={dispatch(taskFetch({item.id})} >
-                <MdClose />
-              </Button> */}
               <div className="button-wrapper">
-                <button
+                {/* <button
                   className="close-wrapper"
                   onClick={() => deleteHandler(item.id)}
                 >
-                  <MdClose />
-                </button>
-                {/* <DeleteModal onClick={() => deleteHandler(item.id)}/> */}
-                <button className="edit-wrapper" onClick={() => editHandler(item.id)}>
-                  <CiEdit />
-                </button>
+                  
+                  <MdClose className="close"/>
+                </button> */}
+                <Button
+                  className={"close-wrapper"}
+                  onClickHandler={deleteHandler(item.id)}
+                >
+                  <MdClose className="close" />
+                </Button>
+
+                <Button className={"edit-wrapper"} onClickHandler={editHandler(item.id)}><CiEdit className="edit" /></Button>
+
+                {/* <button
+                  className="edit-wrapper"
+                  onClick={() => editHandler(item.id)}
+                >
+                  <CiEdit className="edit" />
+                </button> */}
               </div>
-              <p>
-                {item.title} {item.id}
-              </p>
+              <p className="title">{item.title}</p>
               <p className="task-description">{item.description}</p>
               <div className="img-wrapper">
                 <img aria-label="nature" src={item.image} />

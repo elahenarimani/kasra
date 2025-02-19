@@ -1,4 +1,4 @@
-@import "../../variable.scss";
+@import "../styles/variable.scss";
 .button-wrapper{
     width: map-get($size , "width" );
     height: map-get($size , "height" );

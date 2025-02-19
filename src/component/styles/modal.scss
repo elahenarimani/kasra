@@ -1,4 +1,8 @@
-@import "../../variable.scss";
+@import "./variable.scss";
+h3{
+    text-align: center;
+    margin-top: 32px;
+}
 .modal-wrapper{
   position: fixed;
   top: 0;
