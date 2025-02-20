@@ -52,7 +52,7 @@ function EditModal({
           onSubmit={handleeditTask}
         >
           {({ errors, touched, validateField, validateForm }) => (
-            <Form>
+            <Form className="form-wrapper">
               <div className="field-wrapper">
                 <Field name="title" />
                 {errors.title && touched.title ? (

@@ -56,23 +56,18 @@ h3 {
     padding-bottom: 12px;
     h1 {
       @include media(mini-mobile) {
-        // height: 50px;
         font-size: 18px;
       }
       @include media(tablet) {
-        // height: 60px;
         font-size: 18px;
       }
       @include media(largTablet) {
-        // height: 60px;
         font-size: 21px;
       }
       @include media(laptop) {
-        // height: 75px;
         font-size: 21px;
       }
       @include media(desktop) {
-        // height: 75px;
         font-size: 21px;
       }
     }

@@ -41,15 +41,15 @@ function AddModal({ addModalOpen, setAddModalOpen }) {
           onSubmit={handleAddTask}
         >
           {({ errors, touched, validateField, validateForm }) => (
-            <Form>
+            <Form className="form-wrapper">
               <div className="field-wrapper">
-                <Field name="title" />
+                <Field name="title" placeholder="type your title"/>
                 {errors.title && touched.title ? (
                   <div className="error">{errors.title}</div>
                 ) : null}
               </div>
-              <div>
-                <Field name="description" as="textarea" className="field-wrapper" />
+              <div className="field-wrapper" >
+                <Field name="description" as="textarea" placeholder="type your description..."/>
                 {errors.description && touched.description ? (
                   <div className="error">{errors.description}</div>
                 ) : null}
