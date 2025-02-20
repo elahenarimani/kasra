@@ -23,7 +23,8 @@ h3 {
     background: white;
     width: 700px;
     height: 400px;
-
+    padding-top: 20px;
+    padding-bottom: 20px;
     @include media(mini-mobile) {
       width: 90%;
       height: 90vh;
@@ -36,26 +37,25 @@ h3 {
       padding-top: 20px;
       padding-bottom: 20px;
     }
-    @include media(largTablet) {
-      // width: 90%;
-      // height: 90vh;
-      width: 700px;
-      height: 400px;
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-    @include media(laptop) {
-      width: 700px;
-      height: 400px;
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-    @include media(desktop) {
-      width: 700px;
-      height: 400px;
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
+    // @include media(largTablet) {
+     
+    //   width: 700px;
+    //   height: 400px;
+    //   padding-top: 20px;
+    //   padding-bottom: 20px;
+    // }
+    // @include media(laptop) {
+    //   width: 700px;
+    //   height: 400px;
+    //   padding-top: 20px;
+    //   padding-bottom: 20px;
+    // }
+    // @include media(desktop) {
+    //   width: 700px;
+    //   height: 400px;
+    //   padding-top: 20px;
+    //   padding-bottom: 20px;
+    // }
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     h1 {
@@ -77,21 +77,22 @@ h3 {
         
         input,
         textarea {
-          @include media(mini-mobile) {
-            width: 85%;
-          }
-          @include media(tablet) {
-            width: 85%;
-          }
-          @include media(largTablet) {
-            width: 85%;
-          }
-          @include media(laptop) {
-            width: 85%;
-          }
-          @include media(desktop) {
-            width: 85%;
-          }
+          // @include media(mini-mobile) {
+          //   width: 85%;
+          // }
+          // @include media(tablet) {
+          //   width: 85%;
+          // }
+          // @include media(largTablet) {
+          //   width: 85%;
+          // }
+          // @include media(laptop) {
+          //   width: 85%;
+          // }
+          // @include media(desktop) {
+          //   width: 85%;
+          // }
+          width: 85%;
           padding: 10px;
           border: 1px solid #ccc;
           border-radius: 5px;
@@ -105,27 +106,28 @@ h3 {
         }
         textarea {
           resize: none;
+          overflow-y: auto;
+          height: 100px;
           @include media(mini-mobile) {
             height: 250px;
-            overflow-y: auto;
+            // overflow-y: auto;
           }
           @include media(tablet) {
             height: 250px;
-            overflow-y: auto;
+            // overflow-y: auto;
           }
           @include media(largTablet) {
             height: 100px;
-            overflow-y: auto;
+            // overflow-y: auto;
           }
           @include media(laptop) {
             height: 100px;
-            overflow-y: auto;
+            // overflow-y: auto;
           }
           @include media(desktop) {
             height: 100px;
-            overflow-y: auto;
+            // overflow-y: auto;
           }
-
         }
         .error {
           color: red;
