@@ -31,11 +31,7 @@ function EditModal({
     return <h3>failed ...</h3>;
   }
   function handleeditTask(values) {
-    dispatch(
-      editFetch(
-      {...values , id:editIDMode.id}
-      )
-    );
+    dispatch(editFetch({ ...values, id: editIDMode.id }));
     setEditModalOpen(false);
   }
   return (
@@ -59,11 +55,10 @@ function EditModal({
                   <div className="error">{errors.title}</div>
                 ) : null}
               </div>
-              <div>
+              <div className="field-wrapper">
                 <Field
                   name="description"
                   as="textarea"
-                  className="field-wrapper"
                 />
                 {errors.description && touched.description ? (
                   <div className="error">{errors.description}</div>

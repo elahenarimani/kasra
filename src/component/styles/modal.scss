@@ -45,8 +45,16 @@ h3 {
       padding-bottom: 20px;
     }
     @include media(laptop) {
+      width: 700px;
+      height: 400px;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
     @include media(desktop) {
+      width: 700px;
+      height: 400px;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -66,6 +74,7 @@ h3 {
       .field-wrapper {
         width: 100%;
         text-align: center;
+        
         input,
         textarea {
           @include media(mini-mobile) {
@@ -78,13 +87,16 @@ h3 {
             width: 85%;
           }
           @include media(laptop) {
+            width: 85%;
           }
           @include media(desktop) {
+            width: 85%;
           }
           padding: 10px;
           border: 1px solid #ccc;
           border-radius: 5px;
           font-size: 14px;
+          font-family: inherit;
           outline: none;
           &:hover,
           &:focus {
@@ -106,9 +118,14 @@ h3 {
             overflow-y: auto;
           }
           @include media(laptop) {
+            height: 100px;
+            overflow-y: auto;
           }
           @include media(desktop) {
+            height: 100px;
+            overflow-y: auto;
           }
+
         }
         .error {
           color: red;
