@@ -93,9 +93,7 @@ function App() {
           </div>
         ))}
       </main>
- 
-      
-      <footer className={`  ${paginatedData.length <= 4 ? 'fixed-position' : ``}  `}>
+      <footer className={`${paginatedData.length <= 4 ? 'fixed-position' : ``}`}>
         <section className="button-wrapper">
           <Button
             className="icon-prev"

@@ -1,9 +1,8 @@
-import Button from "../button/button";
-
-// import "../styles/modal.scss";
 import "./deleteModal.scss";
+import Button from "../button/button";
 import { deleteFetch } from "../../redux/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { unwrapResult } from '@reduxjs/toolkit'
 function DeleteModal({ deleteId, setDeleteModal }) {
   const dispatch = useDispatch();
   let { status } = useSelector((state) => state);
@@ -13,9 +12,16 @@ function DeleteModal({ deleteId, setDeleteModal }) {
   if (status === "failed ...") {
     return <h3>failed ..</h3>;
   }
-  function handleDeleteTask() {
-    console.log("Deleting ID:", deleteId);
-    dispatch(deleteFetch(deleteId));
+  async function handleDeleteTask() {
+    try{
+     const resultAction = await dispatch(deleteFetch(deleteId));
+     const promiseResult = unwrapResult(resultAction);
+     console.log(promiseResult)
+    }catch(err){
+      throw err;
+    }
+  //   console.log("Deleting ID:", deleteId);
+  //   dispatch(deleteFetch(deleteId));
     setDeleteModal(false);
   }
   return (
