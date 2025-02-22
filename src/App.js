@@ -24,9 +24,8 @@ function App() {
     deleteId: null,
   });
   const paginatedData = useMemo(() => {
-    return task.slice(currentPage * 20 - 20 , currentPage * 20);
+    return task.slice(currentPage * 20 - 20, currentPage * 20);
   }, [task , currentPage]);
-  console.log(paginatedData)
   useEffect(() => {
     dispatch(taskFetch());
   }, []);
@@ -57,8 +56,6 @@ function App() {
     setEditIDMode({ id: editID });
     setEditModalOpen(true);
   }
-  console.log(task);
-  console.log(status);
   return (
     <div className="App">
       <div className="hidden-header"></div>
@@ -93,7 +90,9 @@ function App() {
           </div>
         ))}
       </main>
-      <footer className={`${paginatedData.length <= 4 ? 'fixed-position' : ``}`}>
+      <footer
+        className={`${paginatedData.length <= 4 ? "fixed-position" : ``}`}
+      >
         <section className="button-wrapper">
           <Button
             className="icon-prev"
@@ -111,19 +110,13 @@ function App() {
           </Button>
         </section>
       </footer>
-      {addModalOpen && (
-        <AddModal
-          addModalOpen={addModalOpen}
-          setAddModalOpen={setAddModalOpen}
-        />
-      )}
+      {addModalOpen && <AddModal setAddModalOpen={setAddModalOpen} />}
       {editModalOpen &&
         paginatedData.map((item) => {
           if (item.id === editIDMode.id) {
             return (
               <EditModal
                 editIDMode={editIDMode}
-                editModalOpen={editModalOpen}
                 setEditModalOpen={setEditModalOpen}
                 inpTitle={item.title}
                 inpDescription={item.description}

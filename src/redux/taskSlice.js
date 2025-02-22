@@ -13,11 +13,10 @@ export let deleteFetch = createAsyncThunk("task/deleteTasks", async (id) => {
     method: "DELETE",
   })
     .then((response) => response.json())
-    .then((result) => console.log(result))
     .catch((error) => {
       throw error;
     });
-  return { id };
+  return  id ;
 });
 
 export let addFetch = createAsyncThunk(
@@ -65,7 +64,7 @@ export let editFetch = createAsyncThunk(
         }
       );
       const result = await response.json();
-      return { result: result, id: id };
+      return { editedResult: result , editedId: id };
     } catch (error) {
       throw error;
     }
@@ -87,8 +86,6 @@ const taskSlice = createSlice({
       .addCase(taskFetch.fulfilled, (state, action) => {
         state.status = "success ...";
         state.task = action.payload;
-        // {console.log(state)}
-        // {console.log(action.payload)}
       })
       .addCase(taskFetch.rejected, (state) => {
         state.status = "failed ...";
@@ -99,8 +96,7 @@ const taskSlice = createSlice({
       })
       .addCase(deleteFetch.fulfilled, (state, action) => {
         state.status = "success ...";
-        {console.log(action.payload)}
-        state.task = state.task.filter((task) => task.id !== action.payload.id);
+        state.task = state.task.filter((task) => task.id !== action.payload);
       })
       .addCase(deleteFetch.rejected, (state) => {
         state.status = "failed ...";
@@ -111,7 +107,6 @@ const taskSlice = createSlice({
       })
       .addCase(addFetch.fulfilled, (state, action) => {
         state.status = "success ...";
-        console.log(action.payload);
         state.task = state.task.concat(action.payload);
       })
       .addCase(addFetch.rejected, (state) => {
@@ -123,10 +118,8 @@ const taskSlice = createSlice({
       })
       .addCase(editFetch.fulfilled, (state, action) => {
         state.status = "success ...";
-        console.log(action.payload.result )
-        console.log(action.payload);
         state.task = state.task.map((task) =>
-          task.id === action.payload.id ? action.payload.result : task
+          task.id === action.payload.editedId ? action.payload.editedResult : task
         );
       })
       .addCase(editFetch.rejected, (state) => {

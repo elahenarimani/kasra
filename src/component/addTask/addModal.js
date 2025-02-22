@@ -1,8 +1,9 @@
-import React from "react";
 import "../styles/modal.scss";
+import React from "react";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
 import { addFetch } from "../../redux/taskSlice";
 const SignupSchema = Yup.object().shape({
   title: Yup.string()
@@ -14,7 +15,7 @@ const SignupSchema = Yup.object().shape({
     .max(800, "Too Long!")
     .required("Required"),
 });
-function AddModal({ addModalOpen, setAddModalOpen }) {
+function AddModal({ setAddModalOpen }) {
   const dispatch = useDispatch();
   let { status } = useSelector((state) => state);
   if (status === "loading ...") {
@@ -23,14 +24,18 @@ function AddModal({ addModalOpen, setAddModalOpen }) {
   if (status === "failed ...") {
     return <h3>failed ...</h3>;
   }
-  function handleAddTask(values) {
-    dispatch(addFetch(values));  
-    setAddModalOpen(false);  
+  async function handleAddTask(values) {
+    try {
+      const addResultAction = await dispatch(addFetch(values));
+      const addPromiseResult = unwrapResult(addResultAction);
+    } catch (err) {
+      throw err;
+    }
+    setAddModalOpen(false);
   }
   return (
     <div className="modal-wrapper">
       <div className="modal-content">
-        {console.log("add")}
         <h1>Add Task</h1>
         <Formik
           initialValues={{
@@ -40,16 +45,20 @@ function AddModal({ addModalOpen, setAddModalOpen }) {
           validationSchema={SignupSchema}
           onSubmit={handleAddTask}
         >
-          {({ errors, touched, validateField, validateForm }) => (
+          {({ errors, touched }) => (
             <Form className="form-wrapper">
               <div className="field-wrapper">
-                <Field name="title" placeholder="type your title"/>
+                <Field name="title" placeholder="type your title" />
                 {errors.title && touched.title ? (
                   <div className="error">{errors.title}</div>
                 ) : null}
               </div>
-              <div className="field-wrapper" >
-                <Field name="description" as="textarea" placeholder="type your description..."/>
+              <div className="field-wrapper">
+                <Field
+                  name="description"
+                  as="textarea"
+                  placeholder="type your description..."
+                />
                 {errors.description && touched.description ? (
                   <div className="error">{errors.description}</div>
                 ) : null}

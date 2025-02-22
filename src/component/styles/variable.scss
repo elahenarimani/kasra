@@ -4,13 +4,18 @@ $general-color: #dadce0;
 $border-color: #dddddd;
 $border-hovered: #909090;
 $border-radius: 10px;
-$primary-color: #E65705;
-$secondary-color: #276EF1;
+$primary-color: #e65705;
+$secondary-color: #276ef1;
 $size: (
   "width": 100%,
   "height": 100%,
 );
-@mixin custom-scrollbar($width: 8px, $track-color: grey, $thumb-color: #909090, $hover-color: $primary-color) {
+@mixin custom-scrollbar(
+  $width: 8px,
+  $track-color: grey,
+  $thumb-color: #909090,
+  $hover-color: $primary-color
+) {
   &::-webkit-scrollbar {
     width: $width;
   }
@@ -32,24 +37,23 @@ $size: (
 }
 @mixin media($screenType) {
   @if $screenType == mini-mobile {
-    @media only screen and (min-width: 0px) and (max-width:667px) {
+    @media only screen and (min-width: 0px) and (max-width: 667px) {
       @content;
-      
     }
   } @else if $screenType ==tablet {
-    @media only screen and (min-width :667px) and (max-width:768px){
+    @media only screen and (min-width: 667px) and (max-width: 768px) {
       @content;
     }
   } @else if $screenType ==largTablet {
-    @media only screen and (min-width :768px) and (max-width:999px){
+    @media only screen and (min-width: 768px) and (max-width: 999px) {
       @content;
     }
   } @else if $screenType ==laptop {
-    @media only screen and (min-width :1000px) and (max-width:1299px){
+    @media only screen and (min-width: 1000px) and (max-width: 1299px) {
       @content;
     }
   } @else if $screenType ==desktop {
-    @media only screen and (min-width :1300px) {
+    @media only screen and (min-width: 1300px) {
       @content;
     }
   }

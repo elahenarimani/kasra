@@ -1,10 +1,10 @@
-import React from "react";
 import "../styles/modal.scss";
-// import "./editModal.scss"
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React from "react";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { editFetch } from "../../redux/taskSlice";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 const SignupSchema = Yup.object().shape({
   title: Yup.string()
     .min(2, "Too Short!")
@@ -15,13 +15,7 @@ const SignupSchema = Yup.object().shape({
     .max(800, "Too Long!")
     .required("Required"),
 });
-function EditModal({
-  editIDMode,
-  editModalOpen,
-  setEditModalOpen,
-  inpTitle,
-  inpDescription,
-}) {
+function EditModal({ editIDMode, setEditModalOpen, inpTitle, inpDescription }) {
   const dispatch = useDispatch();
   let { status } = useSelector((state) => state);
   if (status === "loading ...") {
@@ -30,24 +24,30 @@ function EditModal({
   if (status === "failed ...") {
     return <h3>failed ...</h3>;
   }
-  function handleeditTask(values) {
-    dispatch(editFetch({ ...values, id: editIDMode.id }));
+  async function handleEditTask(values) {
+    try {
+      const editResAction = await dispatch(
+        editFetch({ ...values, id: editIDMode.id })
+      );
+      const editPromisResult = unwrapResult(editResAction);
+    } catch (err) {
+      throw err;
+    }
     setEditModalOpen(false);
   }
   return (
     <div className="modal-wrapper">
       <div className="modal-content">
-        {console.log("add")}
         <h1>Edit Task</h1>
         <Formik
           initialValues={{
-            title: inpTitle || "",
-            description: inpDescription || "",
+            title: inpTitle,
+            description: inpDescription,
           }}
           validationSchema={SignupSchema}
-          onSubmit={handleeditTask}
+          onSubmit={handleEditTask}
         >
-          {({ errors, touched, validateField, validateForm }) => (
+          {({ errors, touched }) => (
             <Form className="form-wrapper">
               <div className="field-wrapper">
                 <Field name="title" />
@@ -56,10 +56,7 @@ function EditModal({
                 ) : null}
               </div>
               <div className="field-wrapper">
-                <Field
-                  name="description"
-                  as="textarea"
-                />
+                <Field name="description" as="textarea" />
                 {errors.description && touched.description ? (
                   <div className="error">{errors.description}</div>
                 ) : null}
