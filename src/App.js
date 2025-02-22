@@ -24,9 +24,9 @@ function App() {
     deleteId: null,
   });
   const paginatedData = useMemo(() => {
-    return task.slice(currentPage * 20 - 20, currentPage * 20);
-  }, [task, currentPage]);
-  console.log(paginatedData);
+    return task.slice(currentPage * 20 - 20 , currentPage * 20);
+  }, [task , currentPage]);
+  console.log(paginatedData)
   useEffect(() => {
     dispatch(taskFetch());
   }, []);
@@ -37,7 +37,6 @@ function App() {
     return <h3>failed ...</h3>;
   }
   function handlePrevPage() {
-    console.log("hi");
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
@@ -69,8 +68,8 @@ function App() {
           <MdAddTask className="add-task" />
         </div>
       </header>
-      <main className="task-wrapper">
-        {task?.slice(currentPage * 20 - 20, currentPage * 20).map((item) => (
+      {paginatedData.length <= 4 ? (<div style={{height: "100vh"}}></div>) : (<main className="task-wrapper">
+        {paginatedData.map((item) => (
           <div key={item.id} className="task">
             <div className="button-wrapper">
               <button
@@ -93,7 +92,8 @@ function App() {
             </div>
           </div>
         ))}
-      </main>
+      </main>)}
+      
       <footer>
         <section className="button-wrapper">
           <Button
