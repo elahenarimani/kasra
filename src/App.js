@@ -68,7 +68,7 @@ function App() {
           <MdAddTask className="add-task" />
         </div>
       </header>
-      {paginatedData.length <= 4 ? (<div style={{height: "100vh"}}></div>) : (<main className="task-wrapper">
+      <main className="task-wrapper">
         {paginatedData.map((item) => (
           <div key={item.id} className="task">
             <div className="button-wrapper">
@@ -92,9 +92,10 @@ function App() {
             </div>
           </div>
         ))}
-      </main>)}
+      </main>
+ 
       
-      <footer>
+      <footer className={`  ${paginatedData.length <= 4 ? 'fixed-position' : ``}  `}>
         <section className="button-wrapper">
           <Button
             className="icon-prev"

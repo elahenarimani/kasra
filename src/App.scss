@@ -107,7 +107,6 @@ h3 {
     padding-top: 8px;
     padding-bottom: 8px;
   }
-
   .task-wrapper {
     padding-right: $padding;
     padding-left: $padding;
@@ -196,6 +195,12 @@ h3 {
       }
     }
   }
+
+.fixed-position {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
 
   footer {
     width: 100%;
