@@ -23,9 +23,10 @@ function App() {
     editIdMode: null,
     deleteId: null,
   });
-  const filteredData = useMemo(() => {
-    return task.map((item) => item);
-  }, [task]);
+  const paginatedData = useMemo(() => {
+    return task.slice(currentPage * 20 - 20, currentPage * 20);
+  }, [task, currentPage]);
+  console.log(paginatedData);
   useEffect(() => {
     dispatch(taskFetch());
   }, []);
@@ -42,7 +43,7 @@ function App() {
     }
   }
   function handleNextPage() {
-    if (currentPage < Math.ceil(filteredData.length / 20)) {
+    if (currentPage < Math.ceil(task.length / 20)) {
       setCurrentPage(currentPage + 1);
     }
   }
@@ -69,31 +70,29 @@ function App() {
         </div>
       </header>
       <main className="task-wrapper">
-        {filteredData
-          ?.slice(currentPage * 20 - 20, currentPage * 20)
-          .map((item) => (
-            <div key={item.id} className="task">
-              <div className="button-wrapper">
-                <button
-                  className="close-wrapper"
-                  onClick={() => deleteHandler(item.id)}
-                >
-                  <MdClose className="close" />
-                </button>
-                <button
-                  className="edit-wrapper"
-                  onClick={() => editHandler(item.id)}
-                >
-                  <CiEdit className="edit" />
-                </button>
-              </div>
-              <p className="title">{item.title}</p>
-              <p className="task-description">{item.description}</p>
-              <div className="img-wrapper">
-                <img aria-label="nature" src={item.image} />
-              </div>
+        {task?.slice(currentPage * 20 - 20, currentPage * 20).map((item) => (
+          <div key={item.id} className="task">
+            <div className="button-wrapper">
+              <button
+                className="close-wrapper"
+                onClick={() => deleteHandler(item.id)}
+              >
+                <MdClose className="close" />
+              </button>
+              <button
+                className="edit-wrapper"
+                onClick={() => editHandler(item.id)}
+              >
+                <CiEdit className="edit" />
+              </button>
             </div>
-          ))}
+            <p className="title">{item.title}</p>
+            <p className="task-description">{item.description}</p>
+            <div className="img-wrapper">
+              <img aria-label="nature" src={item.image} />
+            </div>
+          </div>
+        ))}
       </main>
       <footer>
         <section className="button-wrapper">
@@ -107,7 +106,7 @@ function App() {
           <Button
             className="icon-next"
             onClickHandler={handleNextPage}
-            disabled={currentPage === Math.ceil(filteredData.length / 20)}
+            disabled={currentPage === Math.ceil(task.length / 20)}
           >
             <GrFormNext />
           </Button>
@@ -120,7 +119,7 @@ function App() {
         />
       )}
       {editModalOpen &&
-        filteredData.map((item) => {
+        paginatedData.map((item) => {
           if (item.id === editIDMode.id) {
             return (
               <EditModal
